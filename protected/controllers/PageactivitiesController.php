@@ -23,7 +23,8 @@ class PageactivitiesController extends ActivitiesBase
 	{
 		$feedObj = Feed::model()->findAllPost($page_id);
 		$fileName="Feed_".$page_id;			
-		header("Content-type: text/csv");
+		header("Content-type: text/csv;charset=UTF-8");
+		//header("content-type:application/csv;charset=UTF-8");
 		header("Content-Disposition: attachment; filename=$fileName.csv");
 		header("Pragma: no-cache");
 		header("Expires: 0");
@@ -41,7 +42,8 @@ class PageactivitiesController extends ActivitiesBase
 	{
 		$commentObj = Comment::model()->findAllcomments($page_id);
 		$fileName="Comments_".$page_id;	
-		header("Content-type: text/csv");
+		header('Content-Encoding: UTF-8');
+		header('Content-type: text/csv; charset=UTF-8');
 		header("Content-Disposition: attachment; filename=$fileName.csv");
 		header("Pragma: no-cache");
 		header("Expires: 0");
@@ -58,7 +60,7 @@ class PageactivitiesController extends ActivitiesBase
 	{
 		$LikeObj = Like::model()->findAllLikes($page_id);
 		$fileName="Likes_".$page_id;			
-		header("Content-type: text/csv");
+		header("Content-type: text/csv;charset=UTF-8");
 		header("Content-Disposition: attachment; filename=$fileName.csv");
 		header("Pragma: no-cache");
 		header("Expires: 0");
@@ -133,8 +135,8 @@ class PageactivitiesController extends ActivitiesBase
 				$feedObj->page_id = $pageid;
 				$feedObj->post_id = $postdata['id'];
 				
-				$feedObj->from_name = $postdata['from']['name'];
-				$feedObj->from_category = $postdata['from']['category'];
+				$feedObj->from_name = isset($postdata['from']['name']) ? $postdata['from']['name'] : "";
+				$feedObj->from_category = isset($postdata['from']['category']) ? $postdata['from']['category'] : "";
 				$feedObj->from_id = $postdata['from']['id'];
 				$feedObj->page_owner = ($postdata['from']['id'] == $pageid) ? 1 : 0;
 				
@@ -154,8 +156,8 @@ class PageactivitiesController extends ActivitiesBase
 				$feedObj->properties = isset($postdata['properties']) ? $postdata['properties'] : "";
 				$feedObj->icon = isset($postdata['icon']) ? $postdata['icon'] : "";
 				$feedObj->type = isset($postdata['type']) ? $postdata['type'] : "";
-				$feedObj->place = isset($postdata['place']) ? $postdata['place'] : "";		
-				$feedObj->story = isset($postdata['story']) ? $postdata['story'] : "";
+				$feedObj->place = isset($postdata['place']) ? json_encode($postdata['place']) : "";		
+				$feedObj->story = isset($postdata['story']) ? json_encode($postdata['story']) : "";
 				$feedObj->story_tags = isset($postdata['story_tags']) ? $postdata['story_tags'] : "";
 				
 				$feedObj->object_id = isset($postdata['object_id']) ? $postdata['object_id'] : "";
