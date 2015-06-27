@@ -135,17 +135,17 @@ class PageactivitiesController extends ActivitiesBase
 				$feedObj->page_id = $pageid;
 				$feedObj->post_id = $postdata['id'];
 				
-				$feedObj->from_name = isset($postdata['from']['name']) ? $postdata['from']['name'] : "";
-				$feedObj->from_category = isset($postdata['from']['category']) ? $postdata['from']['category'] : "";
+				$feedObj->from_name = isset($postdata['from']['name']) ? json_encode($postdata['from']['name']) : "";
+				$feedObj->from_category = isset($postdata['from']['category']) ? json_encode($postdata['from']['category']) : "";
 				$feedObj->from_id = $postdata['from']['id'];
 				$feedObj->page_owner = ($postdata['from']['id'] == $pageid) ? 1 : 0;
 				
-				$feedObj->to_name = isset($postdata['to']) ? $postdata['to'] : "";
+				$feedObj->to_name = isset($pagepost['to']['data'][0]['name']) ? json_encode($pagepost['to']['data'][0]['name']) : "";
 				$feedObj->to_categerory = isset($postdata['to']['category']) ? $postdata['to']['category'] : "";
 				$feedObj->to_id = isset($postdata['to']['id']) ? $postdata['to']['id'] : "";
 				
 				$feedObj->message = isset($postdata['message']) ? $postdata['message'] : "";
-				$feedObj->message_tags = isset($postdata['message_tags']) ? $postdata['message_tags'] : "";
+				$feedObj->message_tags = isset($postdata['message_tags']) ? json_encode($postdata['message_tags']) : "";
 
 				$feedObj->picture = isset($postdata['picture']) ? $postdata['picture'] : "";
 				$feedObj->link = isset($postdata['link']) ? $postdata['link'] : "";
@@ -153,7 +153,7 @@ class PageactivitiesController extends ActivitiesBase
 				$feedObj->caption = isset($postdata['caption']) ? $postdata['caption'] : "";
 				$feedObj->description = isset($postdata['description']) ? $postdata['description'] : "";		
 				$feedObj->source = isset($postdata['source']) ? $postdata['source'] : "";
-				$feedObj->properties = isset($postdata['properties']) ? $postdata['properties'] : "";
+				$feedObj->properties = isset($postdata['properties']) ? json_encode($postdata['properties']) : "";
 				$feedObj->icon = isset($postdata['icon']) ? $postdata['icon'] : "";
 				$feedObj->type = isset($postdata['type']) ? $postdata['type'] : "";
 				$feedObj->place = isset($postdata['place']) ? json_encode($postdata['place']) : "";		
@@ -161,7 +161,7 @@ class PageactivitiesController extends ActivitiesBase
 				$feedObj->story_tags = isset($postdata['story_tags']) ? $postdata['story_tags'] : "";
 				
 				$feedObj->object_id = isset($postdata['object_id']) ? $postdata['object_id'] : "";
-				$feedObj->application_name = isset($postdata['application']) ? $postdata['application']['name'] : "";
+				$feedObj->application_name = isset($postdata['application']) ? json_encode($postdata['application']['name']) : "";
 				$feedObj->application_id = isset($postdata['application']['id']) ? $postdata['application']['id'] : "";
 				
 				$feedObj->likes_count = isset($postdata['likes']['summary']['total_count']) ? $postdata['likes']['summary']['total_count'] : "";
